@@ -1,0 +1,33 @@
+version: '3.7'
+
+services:
+  symfony-php-apache:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: symfony-php-apache
+    ports:
+      - "80:80"
+    tty: true
+    volumes:
+      - ./app/my-project:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  database:
+    image: mariadb:10.4
+    container_name: database
+    volumes:
+      - .db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+      MYSQL_DATABASE: symfony
+    ports:
+      - "3306"
+###< doctrine/doctrine-bundle ###
+
+volumes:
+###> doctrine/doctrine-bundle ###
+  database_data:
+###< doctrine/doctrine-bundle ###
