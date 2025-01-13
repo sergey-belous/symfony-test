@@ -1,0 +1,18 @@
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <div>Стоимость: <span id="service_offer_cost"></span></div>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}
+<script>
+    const cost = document.querySelector('#service_offer_cost')
+    const rateService = document.querySelector('#service_offer_rateService')
+    const initialCost = rateService.querySelector('option:checked').dataset.cost;
+
+    cost.textContent = initialCost ? initialCost + 'руб.' : '----'
+    
+    rateService.onchange = (evy) => {
+        evy.target.options[evy.target.selectedIndex].dataset.cost ? 
+        cost.textContent = evy.target.options[evy.target.selectedIndex].dataset.cost + 'руб.' :
+        cost.textContent = '---'
+    }
+</script>

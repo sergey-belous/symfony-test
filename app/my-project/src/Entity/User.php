@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +32,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    /**
+     * @var Collection<int, ServiceOffer>
+     */
+    #[ORM\OneToMany(targetEntity: ServiceOffer::class, mappedBy: 'user', orphanRemoval: true)]
+    private Collection $serviceOffers;
+
+    public function __construct()
+    {
+        $this->serviceOffers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,5 +117,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return Collection<int, ServiceOffer>
+     */
+    public function getServiceOffers(): Collection
+    {
+        return $this->serviceOffers;
+    }
+
+    public function addServiceOffer(ServiceOffer $serviceOffer): static
+    {
+        if (!$this->serviceOffers->contains($serviceOffer)) {
+            $this->serviceOffers->add($serviceOffer);
+            $serviceOffer->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeServiceOffer(ServiceOffer $serviceOffer): static
+    {
+        if ($this->serviceOffers->removeElement($serviceOffer)) {
+            // set the owning side to null (unless already changed)
+            if ($serviceOffer->getUser() === $this) {
+                $serviceOffer->setUser(null);
+            }
+        }
+
+        return $this;
     }
 }

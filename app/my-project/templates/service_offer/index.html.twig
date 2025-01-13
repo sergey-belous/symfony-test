@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ServiceOffer index{% endblock %}
+
+{% block body %}
+    <h1>ServiceOffer index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Date_created</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for service_offer in service_offers %}
+            <tr>
+                <td>{{ service_offer.id }}</td>
+                <td>{{ service_offer.dateCreated ? service_offer.dateCreated|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ service_offer.email }}</td>
+                <td>
+                    <a href="{{ path('app_service_offer_show', {'id': service_offer.id}) }}">show</a>
+                    <a href="{{ path('app_service_offer_edit', {'id': service_offer.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_service_offer_new') }}">Create new</a>
+{% endblock %}
