@@ -1,9 +1,9 @@
 <div class="p-3">
     {{ form_start(form) }}
         {{ form_widget(form) }}
-        <div>Стоимость: <span id="service_offer_cost"></span></div>
+        <div>Стоимость: <span id="service_offer_cost">----</span></div>
         <br/>
-        <button class="btn btn-primary">{{ button_label|default('Сохранить') }}</button>
+        <button type="submit" id="service_offer_submit" class="btn btn-primary">{{ button_label|default('Сохранить') }}</button>
     {{ form_end(form) }}
 </div>
 <script>
@@ -11,11 +11,9 @@
     const rateService = document.querySelector('#service_offer_rateService')
     const initialCost = rateService.querySelector('option:checked').dataset.cost;
 
-    cost.textContent = initialCost ? initialCost + 'руб.' : '----'
-    
     rateService.onchange = (evy) => {
-        evy.target.options[evy.target.selectedIndex].dataset.cost ? 
-        cost.textContent = evy.target.options[evy.target.selectedIndex].dataset.cost + 'руб.' :
-        cost.textContent = '---'
+        cost.textContent = evy.target.options[evy.target.selectedIndex].dataset.cost ? 
+            evy.target.options[evy.target.selectedIndex].dataset.cost + 'руб.' :
+            '---'
     }
 </script>

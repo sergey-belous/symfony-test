@@ -11,10 +11,12 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 class UserFixture extends Fixture
 {
+    public const USER_1_USERNAME_FIXTURE = 'user';
+    public const USER_1_PASSWORD_FIXTURE = 'password';
     public function load(ObjectManager $manager): void
     {
         $user = (new User())
-            ->setUsername('user')
+            ->setUsername(self::USER_1_USERNAME_FIXTURE)
             ->setRoles(['ROLE_USER'])
         ;
 
@@ -22,7 +24,7 @@ class UserFixture extends Fixture
             PasswordAuthenticatedUserInterface::class => ['algorithm' => 'auto'],
         ]);
         $passwordHasher = new UserPasswordHasher($passwordHasherFactory);
-        $hashedPassword = $passwordHasher->hashPassword($user, 'password');
+        $hashedPassword = $passwordHasher->hashPassword($user, self::USER_1_PASSWORD_FIXTURE);
         $user->setPassword($hashedPassword);
 
         $manager->persist($user);
