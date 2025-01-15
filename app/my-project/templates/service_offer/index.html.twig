@@ -1,17 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ServiceOffer index{% endblock %}
+{% block title %}Заявки{% endblock %}
 
 {% block body %}
-    <h1>ServiceOffer index</h1>
+    <h1>Заявки</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Date_created</th>
+                <th>Дата создания</th>
                 <th>Email</th>
-                <th>actions</th>
+                <th>Пользователь</th>
+                <th>Услуга</th>
+                <th>Стоимость</th>
+                <!-- <th>actions</th> -->
             </tr>
         </thead>
         <tbody>
@@ -20,10 +23,13 @@
                 <td>{{ service_offer.id }}</td>
                 <td>{{ service_offer.dateCreated ? service_offer.dateCreated|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ service_offer.email }}</td>
-                <td>
-                    <a href="{{ path('app_service_offer_show', {'id': service_offer.id}) }}">show</a>
-                    <a href="{{ path('app_service_offer_edit', {'id': service_offer.id}) }}">edit</a>
-                </td>
+                <td>{{ service_offer.user.username }}</td>
+                <td>{{ service_offer.rateService.name }}</td>
+                <td>{{ service_offer.rateService.cost }}</td>
+                <!-- <td> -->
+                    <!-- <a href="{#{{ path('app_service_offer_show', {'id': service_offer.id}) }}#}">show</a> -->
+                    <!-- <a href="{#{{ path('app_service_offer_edit', {'id': service_offer.id}) }}#}">edit</a> -->
+                <!-- </td> -->
             </tr>
         {% else %}
             <tr>
@@ -33,5 +39,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_service_offer_new') }}">Create new</a>
+    <a href="{{ path('app_service_offer_new') }}">Добавить</a>
 {% endblock %}

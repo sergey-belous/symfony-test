@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New ServiceOffer{% endblock %}
+{% block title %}Новая заявка{% endblock %}
 
 {% block body %}
-    <h1>Create new ServiceOffer</h1>
+    <h1>Создайте новую заявку</h1>
 
     {{ include('service_offer/_form.html.twig') }}
 
-    <a href="{{ path('app_service_offer_index') }}">back to list</a>
 {% endblock %}

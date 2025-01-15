@@ -1,8 +1,11 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <div>Стоимость: <span id="service_offer_cost"></span></div>
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="p-3">
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <div>Стоимость: <span id="service_offer_cost"></span></div>
+        <br/>
+        <button class="btn btn-primary">{{ button_label|default('Сохранить') }}</button>
+    {{ form_end(form) }}
+</div>
 <script>
     const cost = document.querySelector('#service_offer_cost')
     const rateService = document.querySelector('#service_offer_rateService')
