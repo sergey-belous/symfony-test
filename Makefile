@@ -10,9 +10,9 @@ create-database:
 	docker exec -t symfony-php-apache bash -c '/app/bin/console doctrine:fixtures:load --no-interaction'
 
 create-test-database:
-	docker exec -t symfony-php-apache bash -c '/app/bin/console doctrine:database:create --if-not-exists --no-interaction'
-	docker exec -t symfony-php-apache bash -c '/app/bin/console doctrine:migrations:migrate --no-interaction'
-	docker exec -t symfony-php-apache bash -c '/app/bin/console doctrine:fixtures:load --no-interaction'
+	docker exec -t symfony-php-apache bash -c '/app/bin/console --env=test doctrine:database:create --if-not-exists --no-interaction'
+	docker exec -t symfony-php-apache bash -c '/app/bin/console --env=test doctrine:migrations:migrate --no-interaction'
+	docker exec -t symfony-php-apache bash -c '/app/bin/console --env=test doctrine:fixtures:load --no-interaction'
 
 reset-database:
 	docker exec -t symfony-php-apache bash -c '/app/bin/console doctrine:schema:drop --force --full-database'
